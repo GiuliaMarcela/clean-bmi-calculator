@@ -1,5 +1,3 @@
-import sys
-
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
@@ -40,11 +38,10 @@ class RichAdapter(CLIInterface):
         panel_error = Panel.fit(
             title="Desculpa.. tivemos um problema! x(",
             title_align="center",
-            renderable=Text(message, style="white"),
+            renderable=Text(message),
             padding=(1, 6, 1, 6),
         )
         self.console.print(Align.center(panel_error))
-        sys.exit(1)
 
     def _print_header(self) -> None:
         title = Table.grid(padding=1)
@@ -54,24 +51,23 @@ class RichAdapter(CLIInterface):
 █▀▀ ▄▀█ █░░ █▀▀ ░ █ █▀▄▀█ █▀▀
 █▄▄ █▀█ █▄▄ █▄▄ ▄ █ █░▀░█ █▄▄
             """,
-                justify="center",
+                justify="center"
             ),
         )
         title.add_row(
             Text(
-                "Uso: python main.py calculate [--type type] --weight weight --height height",
-                justify="center",
-            )
+                "Como usar: python main.py calculate [--type type] --weight weight --height height"
+            ),
         )
         title.add_row(
             Text(
-                "Calcula com base no peso e altura do sistema de medida informado.",
-                justify="center",
+            "Calcula com base no peso e altura do sistema de medida informado.",
+                justify="center"
             )
         )
         title.add_row()
 
-        self.console.print(title)
+        self.console.print(Align.center(title))
 
     def _print_commands(self) -> None:
         table_commands = Table.grid(padding=8)
@@ -90,7 +86,7 @@ class RichAdapter(CLIInterface):
     def _print_options(self) -> None:
         table_options = Table.grid(padding=1)
         table_options.add_row(
-            "--help",
+            "--help, -h",
             "Exibe a mensagem de ajuda da calculadora",
         )
         table_options.add_row(
