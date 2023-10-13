@@ -1,17 +1,18 @@
 from abc import ABC, abstractmethod
 
 
-class BMICalculator(ABC):
+class Calculator(ABC):
     """
     Classe abstrata que define um contrato para calcular o Índice de Massa Corporal (IMC).
-    
-    As classes concretas que implementam esta interface devem fornecer uma implementação 
+
+    As classes concretas que implementam esta interface devem fornecer uma implementação
     do método "calculate" que calcula o IMC com base no peso e altura fornecidos.
     """
+
     @abstractmethod
-    def calculate(self, weight, height):
+    def calculate(self, weight, height) -> float:
         """
-        Este método abstrato deve ser implementado nas subclasses. 
+        Este método abstrato deve ser implementado nas subclasses.
         Ele recebe dois argumentos:
 
         args:

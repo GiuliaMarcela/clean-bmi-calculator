@@ -1,11 +1,11 @@
 from src.common.constants import (
     HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
     INVALID_VALUE_MESSAGE,
-    WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE
+    WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
 )
 
 
-class InputValidator():
+class InputValidator:
     """
     Classe utilitária para validar dados de peso e altura.
 
@@ -22,7 +22,7 @@ class InputValidator():
             weight(int): O valor do peso a ser validado.
 
         Raises:
-            ValueError: Se o peso for menor ou igual a zero 
+            ValueError: Se o peso for menor ou igual a zero
             ou se o valor fornecido não for do tipo `int`.
         """
         if not isinstance(weight, (int, float)):
@@ -39,7 +39,7 @@ class InputValidator():
             height(float): O valor da altura a ser validado.
 
         Raises:
-            ValueError: Se a altura for menor ou igual a zero ou 
+            ValueError: Se a altura for menor ou igual a zero ou
             se o valor informado diferente de `int` ou `float`.
         """
         if not isinstance(height, (int, float)):
