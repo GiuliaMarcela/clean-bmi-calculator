@@ -6,10 +6,14 @@ from src.common.constants import (
     MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE,
     WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
 )
-from src.domain.use_cases.calculate_metric_bmi import MetricBMI
+from src.domain.use_cases.calculate_metric_bmi_use_case import CalculateMetricBMIUseCase
 
 
-class TestCalculateMetricBMI:
+class TestCalculateMetricBMIUseCase:
+    """
+    Classe destinada aos cenários de teste da classe `CalculateMetricBMIUseCase`
+    """
+
     def test_should_return_correct_bmi_value(self):
         """
         Testa se o cálculo do Índice de Massa Corporal (IMC) retorna o valor correto.
@@ -17,7 +21,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de cálculo do IMC produz o valor esperado
         com base em valores de peso e altura fornecidos.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         assert metric.calculate(64, 1.64) == 23.8
 
     def test_should_throw_error_if_zero_height_is_provided(self):
@@ -27,7 +31,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando zero é fornecido como altura.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
             metric.calculate(70, 0)
 
@@ -38,7 +42,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando zero é fornecido como peso.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
             metric.calculate(0, 1.64)
 
@@ -49,7 +53,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando valor negativo é fornecido como peso.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
             metric.calculate(-2, 1.64)
 
@@ -60,7 +64,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando valor negativo é fornecido como altura.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
             metric.calculate(98, -1.64)
 
@@ -71,7 +75,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando um peso inválido é fornecido.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=INVALID_VALUE_MESSAGE):
             metric.calculate("a", 1.64)
 
@@ -82,7 +86,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando uma altura inválida é fornecida.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=INVALID_VALUE_MESSAGE):
             metric.calculate(70, "a")
 
@@ -93,7 +97,7 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando um peso maior que o limite permitido é fornecido.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE):
             metric.calculate(596, 1.64)
 
@@ -104,6 +108,6 @@ class TestCalculateMetricBMI:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando uma altura muito grande é fornecida.
         """
-        metric = MetricBMI()
+        metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE):
             metric.calculate(70, 2.51)

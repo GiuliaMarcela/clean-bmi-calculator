@@ -7,12 +7,12 @@ from src.common.input_validator import InputValidator
 from src.domain.bmi_calculator import Calculator
 
 
-class MetricBMI(Calculator):
+class CalculateMetricBMIUseCase(Calculator):
     """
     Classe concreta que calcula o Índice de Massa Corporal (IMC)
     com base no peso em quilogramas (kg) e na altura em metros (m).
 
-    A classe `MetricBMI` estende a classe abstrata `BMICalculator`,
+    A classe `CalculateMetricBMIUseCase` estende a classe abstrata `Calculator`,
     fornecendo uma implementação concreta do método `calculate`
     para calcular o IMC com unidades métricas.
     """
