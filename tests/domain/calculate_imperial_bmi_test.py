@@ -1,17 +1,21 @@
 import pytest
 
 from src.common.constants import (
-    HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
-    INVALID_VALUE_MESSAGE,
     MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE,
+    INVALID_VALUE_MESSAGE,
     WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
+    HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE
 )
-from src.domain.use_cases.calculate_metric_bmi_use_case import CalculateMetricBMIUseCase
+from src.domain.use_cases.calculate_imperial_bmi_use_case import CalculateImperialBMIUseCase
 
 
-class TestCalculateMetricBMIUseCase:
+class TestCalculateImperialBMIUseCase:
     """
-    Classe destinada aos cenários de teste da classe `CalculateMetricBMIUseCase`
+    Classe para testar o cenário de uso da classe `CalculateImperialBMIUseCase`.
+
+    Esta classe é usada para realizar testes do cenário de uso da classe
+    `CalculateImperialBMIUseCase`. Ela utiliza valores em libras
+    para representar o peso e polegadas para representar a altura.
     """
 
     def test_should_return_correct_bmi_value(self):
@@ -21,8 +25,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de cálculo do IMC produz o valor esperado
         com base em valores de peso e altura fornecidos.
         """
-        metric = CalculateMetricBMIUseCase()
-        assert metric.calculate(64, 1.64) == 23.8
+        metric = CalculateImperialBMIUseCase()
+        assert metric.calculate(200, 70) == 28.7
+        assert metric.calculate(150, 66) == 24.2
 
     def test_should_throw_error_if_zero_height_is_provided(self):
         """
@@ -31,9 +36,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando zero é fornecido como altura.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
-            metric.calculate(70, 0)
+            metric.calculate(180, 0)
 
     def test_should_throw_error_if_zero_weight_is_provided(self):
         """
@@ -42,9 +47,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando zero é fornecido como peso.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
-            metric.calculate(0, 1.64)
+            metric.calculate(0, 72)
 
     def test_should_throw_error_if_negative_weight_is_provided(self):
         """
@@ -53,9 +58,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando valor negativo é fornecido como peso.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
-            metric.calculate(-2, 1.64)
+            metric.calculate(-150, 66)
 
     def test_should_throw_error_if_negative_height_is_provided(self):
         """
@@ -64,9 +69,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando valor negativo é fornecido como altura.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE):
-            metric.calculate(98, -1.64)
+            metric.calculate(150, -74)
 
     def test_should_throw_error_if_invalid_weight_is_provided(self):
         """
@@ -75,9 +80,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando um peso inválido é fornecido.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=INVALID_VALUE_MESSAGE):
-            metric.calculate("a", 1.64)
+            metric.calculate("invalid", 70)
 
     def test_should_throw_error_if_invalid_height_is_provided(self):
         """
@@ -86,9 +91,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando uma altura inválida é fornecida.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=INVALID_VALUE_MESSAGE):
-            metric.calculate(70, "a")
+            metric.calculate(70, "invalid")
 
     def test_should_throw_error_if_large_weight_is_provided(self):
         """
@@ -97,9 +102,9 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando um peso maior que o limite permitido é fornecido.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE):
-            metric.calculate(596, 1.64)
+            metric.calculate(1401, 96)
 
     def test_should_throw_error_if_large_height_is_provided(self):
         """
@@ -108,6 +113,6 @@ class TestCalculateMetricBMIUseCase:
         Este teste verifica se a função de validação lança uma exceção 'ValueError'
         quando uma altura muito grande é fornecida.
         """
-        metric = CalculateMetricBMIUseCase()
+        metric = CalculateImperialBMIUseCase()
         with pytest.raises(ValueError, match=MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE):
-            metric.calculate(70, 2.51)
+            metric.calculate(150, 108)
