@@ -27,11 +27,20 @@ class RichAdapter(CLIInterface):
 
     def print_result(self, value, category) -> None:
         self._print_header()
-        result_table = Table(expand=True)
+        result_table = Table.grid(padding=(0, 28))
+
         result_table.add_column("Valor")
         result_table.add_column("Categoria")
         result_table.add_row(value, category)
-        self.console.print(Align.center(result_table))
+
+        result_panel = Panel(
+            title="Resultado",
+            title_align="center",
+            renderable=result_table,
+            padding=(1, 10),
+        )
+
+        self.console.print(Align.center(result_panel))
 
     def print_error(self, message) -> None:
         self._print_header()
@@ -56,12 +65,12 @@ class RichAdapter(CLIInterface):
         )
         title.add_row(
             Text(
-                "Como usar: python main.py calculate [--type type] --weight weight --height height"
+                "Como usar: python main.py calculate [--unit unit] --weight weight --height height"
             ),
         )
         title.add_row(
             Text(
-            "Calcula com base no peso e altura do sistema de medida informado.",
+                "Calcula com base no peso e altura do sistema de medida informado.",
                 justify="center"
             )
         )
@@ -90,7 +99,7 @@ class RichAdapter(CLIInterface):
             "Exibe a mensagem de ajuda da calculadora",
         )
         table_options.add_row(
-            "--type [green]<type>[/]",
+            "--unit [green]<unit>[/]",
             "Especifique o tipo de medida (metric ou imperial) (padrão: metric)",
         )
         table_options.add_row(

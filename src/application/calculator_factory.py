@@ -12,12 +12,12 @@ class CalculatorFactory:
     """
 
     @staticmethod
-    def create_calculator(type_of_calculation: str) -> Calculator:
+    def create_calculator(unit: str) -> Calculator:
         """
         Cria uma instância de uma calculadora com base no tipo de cálculo.
 
         args:
-            type_of_calculation(str): O tipo de cálculo ('métrico' ou 'imperial').
+            unit(str): O tipo de cálculo ('métrico' ou 'imperial').
 
         returns:
             Calculator: Uma instância de uma subclasse de Calculadora.
@@ -25,10 +25,10 @@ class CalculatorFactory:
         raises:
             ValueError: Se um tipo de cálculo inválido for fornecido.
         """
-        if type_of_calculation == "metric":
+        if unit == "metric":
             return CalculateMetricBMIUseCase()
 
-        if type_of_calculation == "imperial":
+        if unit == "imperial":
             return CalculateImperialBMIUseCase()
 
-        raise ValueError(f'Tipo inválido: {type_of_calculation}')
+        raise ValueError(f'Unidade de medida inválida: {unit}')

@@ -1,3 +1,5 @@
+from typing import Union
+
 from src.common.constants import (
     HEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE,
     INVALID_VALUE_MESSAGE,
@@ -14,7 +16,7 @@ class InputValidator:
     """
 
     @staticmethod
-    def validate_weight(weight: int):
+    def validate_weight(weight: Union[int, float]):
         """
         Valida o peso fornecido.
 
@@ -31,7 +33,7 @@ class InputValidator:
             raise ValueError(WEIGHT_LESS_THAN_OR_EQUAL_TO_ZERO_MESSAGE)
 
     @staticmethod
-    def validate_height(height: float):
+    def validate_height(height: Union[int, float]):
         """
         Valida a altura fornecida.
 
