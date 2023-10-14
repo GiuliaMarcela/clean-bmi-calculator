@@ -1,6 +1,7 @@
 import sys
 
 from src.application.calculator_factory import CalculatorFactory
+from src.common.bmi_classifier import BMIClassifier
 from src.common.constants import TYPE_CHOICES
 from src.interface.cli_interface import CLIInterface
 
@@ -36,17 +37,17 @@ class Cli:
             self.__adapter.print_help()
             sys.exit(0)
 
-        if "--type" in sys.argv:
-            type_index = sys.argv.index("--type")
+        if "--unit" in sys.argv:
+            unit_index = sys.argv.index("--unit")
 
             if (
-                    type_index + 1 >= len(sys.argv)
-                    or sys.argv[type_index + 1] not in TYPE_CHOICES
+                    unit_index + 1 >= len(sys.argv)
+                    or sys.argv[unit_index + 1] not in TYPE_CHOICES
             ):
-                self.__adapter.print_error("Tipo inválido. Use 'metric' ou 'imperial'")
+                self.__adapter.print_error("Unidade de medida inválida. Use 'metric' ou 'imperial'")
                 sys.exit(1)
 
-            type_of_calculation = sys.argv[type_index + 1]
+            type_of_calculation = sys.argv[unit_index + 1]
 
         if "--weight" not in sys.argv or "--height" not in sys.argv:
             self.__adapter.print_error("As opções --weight e --height são obrigatórias.")
@@ -66,17 +67,15 @@ class Cli:
                 _height = float(sys.argv[height_index + 1])
 
                 calculator = self.__calculator.create_calculator(type_of_calculation)
-                imc = calculator.calculate(_weight, _height)
-                self.__adapter.print_result(str(imc), "Oi")
-                sys.exit(0)
-            except ValueError as error:
-                message = str(error)
-                if message == "Valores iguais a 0 ou negativos não são permitidos.":
-                    self.__adapter.print_error(message)
-                    sys.exit(1)
+                result = calculator.calculate(_weight, _height)
+                category = BMIClassifier(result).classify()
 
+                self.__adapter.print_result(str(result), category)
+
+                sys.exit(0)
+            except ValueError:
                 self.__adapter.print_error(
                     f'Não foi possível converter o valor informado.'
-                    f'\nEntrada: [red]{" ".join(sys.argv[1:])}[/red]'
+                    f'\nEntrada: {" ".join(sys.argv[1:])}'
                 )
                 sys.exit(1)
