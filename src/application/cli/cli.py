@@ -37,6 +37,10 @@ class Cli:
             self.__adapter.print_help()
             sys.exit(0)
 
+        if "calculate" not in sys.argv:
+            self.__adapter.print_help()
+            sys.exit(0)
+
         if "--unit" in sys.argv:
             unit_index = sys.argv.index("--unit")
 
@@ -73,9 +77,9 @@ class Cli:
                 self.__adapter.print_result(str(result), category)
 
                 sys.exit(0)
-            except ValueError:
+            except ValueError as error:
                 self.__adapter.print_error(
-                    f'Não foi possível converter o valor informado.'
+                    f'{error}'
                     f'\nEntrada: {" ".join(sys.argv[1:])}'
                 )
                 sys.exit(1)

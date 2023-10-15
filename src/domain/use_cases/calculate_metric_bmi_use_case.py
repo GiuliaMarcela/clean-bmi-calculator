@@ -4,6 +4,7 @@ from src.common.constants import (
     MAX_METRIC_WEIGHT,
 )
 from src.common.input_validator import InputValidator
+from src.common.numbers import convert_to_formatted_decimal
 from src.domain.bmi_calculator import Calculator
 
 
@@ -29,4 +30,8 @@ class CalculateMetricBMIUseCase(Calculator):
         if height > MAX_METRIC_HEIGHT:
             raise ValueError(MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE)
 
-        return round((weight / (height ** 2)), 1)
+        height_in_decimal_value = convert_to_formatted_decimal(
+            height
+        )
+
+        return round((weight / (height_in_decimal_value ** 2)), 1)
