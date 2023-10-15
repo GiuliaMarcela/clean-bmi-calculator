@@ -1,22 +1,30 @@
 repos:
--   repo: local
+  - repo: local
     hooks:
-    -   id: pylint
+      - id: pylint
         name: pylint
         entry: pylint
         language: system
-        types: [python]
+        types: [ python ]
         args: [
           "-rn", # only display messages
           "-sn", # don't display the score
           "--rcfile=.pylintrc", # link config file
           "--load.plugins=pylint.extensions.docparams"
         ]
--   repo: local
+  - repo: local
     hooks:
-    -   id: requirements
+      - id: requirements
         name: update requirements.txt
         entry: cmd /C "venv\Scripts\pip freeze > requirements.txt && git add requirements.txt"
         language: system
         pass_filenames: false
-        stages: [commit]
+        stages: [ commit ]
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest all tests
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
