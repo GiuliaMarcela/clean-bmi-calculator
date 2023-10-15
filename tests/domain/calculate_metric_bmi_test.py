@@ -110,4 +110,4 @@ class TestCalculateMetricBMIUseCase:
         """
         metric = CalculateMetricBMIUseCase()
         with pytest.raises(ValueError, match=MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE):
-            metric.calculate(70, 2.51)
+            metric.calculate(70, 2.52)
