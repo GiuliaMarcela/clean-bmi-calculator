@@ -25,13 +25,13 @@ class CalculateMetricBMIUseCase(Calculator):
         self.input_validator.validate_height(height)
         self.input_validator.validate_weight(weight)
 
-        if weight > MAX_METRIC_WEIGHT:
-            raise ValueError(MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE)
-        if height > MAX_METRIC_HEIGHT:
-            raise ValueError(MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE)
-
         height_in_decimal_value = convert_to_formatted_decimal(
             height
         )
+
+        if weight > MAX_METRIC_WEIGHT:
+            raise ValueError(MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE)
+        if height_in_decimal_value > MAX_METRIC_HEIGHT:
+            raise ValueError(MEASUREMENTS_EXCEED_WORLD_RECORDS_MESSAGE)
 
         return round((weight / (height_in_decimal_value ** 2)), 1)
